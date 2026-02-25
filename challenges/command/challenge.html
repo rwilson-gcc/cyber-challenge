@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Command Injection Challenge</title>
+<link rel="stylesheet" href="../../shared/challenge-style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Command Injection Challenge</h1>
+    <p class="lead">
+      Your goal: exploit a vulnerable “ping” tool by injecting commands to
+      <strong>list a home directory</strong>, <strong>reveal network interfaces</strong>, and
+      <strong>read a secret file</strong>.
+    </p>
+  </div>
+
+  <!-- 1) INTERACTIVE TASK ---------------------------------------------------->
+  <h2 class="section">1. Interactive Task</h2>
+
+  <div class="panel">
+    <p>
+      This tool is <strong>deliberately vulnerable</strong> when Safe Mode is off. Try adding command
+      separators to run extra commands on the server (simulated).
+    </p>
+    <ul class="info">
+      <li>List directory: <code>; ls</code></li>
+      <li>Show IPs: <code>| ip a</code> or <code>; ip a</code></li>
+      <li>Read the secret file: <code>&amp;&amp; more secret.txt</code> or <code>|| cat secret.txt</code></li>
+    </ul>
+
+    <div id="modeInfo" class="panel" style="margin-top:10px;">
+      Unsafe mode — user input is concatenated into a shell command.
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="safeMode">
+          <label for="safeMode">Use Safe Execution Mode</label>
+        </div>
+
+        <label for="host">Enter hostname to ping:</label>
+        <input type="text" id="host" placeholder="Try: 8.8.8.8; ls">
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="runCommand()">Run (Simulated)</button>
+          <button class="btn btn-secondary" onclick="clearOutput()">Clear Output</button>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="section">Constructed Command</h3>
+        <pre id="cmd" class="code">(nothing yet)</pre>
+      </div>
+    </div>
+
+    <h3 class="section">Result</h3>
+    <pre id="result" class="code">(no output)</pre>
+  </div>
+
+  <!-- 2) QUESTIONS ----------------------------------------------------------->
+  <h2 class="section">2. Questions</h2>
+
+  <div class="quiz">
+
+    <div class="question">
+      1. What is Command Injection?
+    </div>
+    <div class="options">
+      <label class="option">
+        <input type="radio" name="q1" value="a">
+        When a server upgrades commands to a newer version automatically
+      </label>
+      <label class="option">
+        <input type="radio" name="q1" value="b">
+        When unvalidated user input is passed to a system shell command, allowing extra commands to run
+      </label>
+      <label class="option">
+        <input type="radio" name="q1" value="c">
+        A safe way to run maintenance tasks on servers
+      </label>
+    </div>
+
+    <div class="question">
+      2. Which of the following inputs clearly shows command injection?
+    </div>
+    <div class="options">
+      <label class="option">
+        <input type="radio" name="q2" value="a">
+        <code>example.com</code>
+      </label>
+      <label class="option">
+        <input type="radio" name="q2" value="b">
+        <code>8.8.8.8; ls</code>
+      </label>
+      <label class="option">
+        <input type="radio" name="q2" value="c">
+        <code>intranet.local</code>
+      </label>
+    </div>
+
+    <div class="question">
+      3. Which approach best prevents Command Injection?
+    </div>
+    <div class="options">
+      <label class="option">
+        <input type="radio" name="q3" value="a">
+        Build command strings by concatenating user input
+      </label>
+      <label class="option">
+        <input type="radio" name="q3" value="b">
+        Use safe APIs that avoid the shell (e.g., argument arrays like <code>execFile("ping", [host])</code>)
+      </label>
+      <label class="option">
+        <input type="radio" name="q3" value="c">
+        Allow any characters so the server doesn’t crash
+      </label>
+    </div>
+
+  </div>
+
+  <!-- 3) REFLECTION ---------------------------------------------------------->
+  <h2 class="section">3. Reflection</h2>
+  <p>In your own words, explain why “safe execution mode” blocks the injected commands:</p>
+  <textarea id="reflection"></textarea>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="submitCommandAnswers()">Check My Answers</button>
+  </div>
+
+  <div id="score" class="result" style="margin-top:16px;"></div>
+
+  <div id="modelAnswers" class="panel" style="display:none; margin-top:16px;">
+    <h3 class="section">Model Answers</h3>
+    <p><strong>1.</strong> Command Injection occurs when untrusted input is passed to a system shell command, letting attackers run extra commands.</p>
+    <p><strong>2.</strong> <code>8.8.8.8; ls</code></p>
+    <p><strong>3.</strong> Use safe APIs that do not invoke the shell (argument arrays, e.g., <code>execFile</code> / <code>subprocess.run([...])</code>).</p>
+    <p><strong>Reflection example:</strong> Safe execution separates executable and arguments, preventing the shell from interpreting separators like <code>;</code>, <code>&amp;&amp;</code>, <code>|</code>, so injected commands never run.</p>
+  </div>
+
+</div>
+
+<script src="logic.js"></script>
+</body>
+</html>
