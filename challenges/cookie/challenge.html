@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cookie Tampering Challenge</title>
+../../shared/challenge-style.css
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Cookie Tampering Challenge</h1>
+    <p class="lead">
+      Your goal: modify a simulated cookie to escalate privileges, observe how signed cookies block tampering,
+      and answer the questions below.
+    </p>
+  </div>
+
+  <!-- 1) INTERACTIVE TASK ---------------------------------------------------->
+  <h2 class="section">1. Interactive Task</h2>
+
+  <p>
+    Some insecure websites trust values stored in cookies without checking them.  
+    In this task, you can modify a <strong>role</strong> cookie and attempt to gain admin access.
+  </p>
+
+  <div class="panel">
+
+      <div class="checkbox-row">
+          <input type="checkbox" id="signedMode" checked>
+          <label for="signedMode">Use Signed Cookie Mode (recommended)</label>
+      </div>
+
+      <div id="modeInfo" class="info-box"></div>
+
+      <h3 class="section">Client Cookie</h3>
+
+      <label>role:</label>
+      <input type="text" id="role" value="user" oninput="refreshSignature()">
+
+      <label>signature:</label>
+      <input type="text" id="sig" readonly>
+
+      <button class="btn btn-primary" onclick="applyCookie()">Apply Cookie</button>
+
+      <h3 class="section">Server Decision</h3>
+      <div id="access" class="result" style="margin-top:12px;"></div>
+
+      <h3 class="section">Server Log</h3>
+      <pre id="log" class="code"></pre>
+
+  </div>
+
+
+  <!-- 2) MCQs --------------------------------------------------------------->
+  <h2 class="section">2. Questions</h2>
+
+  <div class="quiz">
+
+      <div class="question">
+          1. What is cookie tampering?
+      </div>
+      <div class="options">
+          <label class="option">
+              <input type="radio" name="q1" value="a">
+              Editing client‑side cookies to trick a server into granting higher privileges
+          </label>
+          <label class="option">
+              <input type="radio" name="q1" value="b">
+              A secure method for fast authentication
+          </label>
+          <label class="option">
+              <input type="radio" name="q1" value="c">
+              When cookies are stored in the cloud
+          </label>
+      </div>
+
+      <div class="question">
+          2. Why do signed cookies prevent tampering?
+      </div>
+      <div class="options">
+          <label class="option">
+              <input type="radio" name="q2" value="a">
+              Only the server knows the secret used to generate the signature
+          </label>
+          <label class="option">
+              <input type="radio" name="q2" value="b">
+              Signatures make cookies expire faster
+          </label>
+          <label class="option">
+              <input type="radio" name="q2" value="c">
+              Browsers encrypt all cookie values by default
+          </label>
+      </div>
+
+      <div class="question">
+          3. What is the safest way to manage user roles?
+      </div>
+      <div class="options">
+          <label class="option">
+              <input type="radio" name="q3" value="a">
+              Store roles in client cookies without validation
+          </label>
+          <label class="option">
+              <input type="radio" name="q3" value="b">
+              Use signed cookies or store roles on the server side
+          </label>
+          <label class="option">
+              <input type="radio" name="q3" value="c">
+              Save roles inside images to hide them
+          </label>
+      </div>
+
+  </div>
+
+  <!-- 3) REFLECTION ---------------------------------------------------------->
+  <h2 class="section">3. Reflection</h2>
+
+  <p>In your own words, explain why unsigned cookies are dangerous:</p>
+  <textarea id="reflection"></textarea>
+
+  <button class="btn btn-primary" onclick="submitCookieAnswers()">Check My Answers</button>
+
+  <div id="score" class="result" style="margin-top:16px;"></div>
+
+  <div id="modelAnswers" class="panel" style="display:none; margin-top:16px;">
+      <h3 class="section">Model Answers</h3>
+      <p><strong>1.</strong> Cookie tampering is when attackers edit cookies to escalate privileges.</p>
+      <p><strong>2.</strong> Signed cookies prevent tampering because attackers cannot forge the signature.</p>
+      <p><strong>3.</strong> The safest method is to store roles server‑side or use signed cookies.</p>
+      <p><strong>Reflection example:</strong> Unsigned cookies are dangerous because users can modify them in the browser, and insecure servers may trust them without verification.</p>
+  </div>
+
+</div>
+
+logic.js</script>
+</body>
+</html>
