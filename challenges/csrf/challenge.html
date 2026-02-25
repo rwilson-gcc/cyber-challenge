@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSRF Challenge</title>
+../../shared/challenge-style.css
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>CSRF Challenge</h1>
+        <p class="lead">
+            Your goal: trigger a simulated CSRF attack, observe the result, and answer the questions below.
+        </p>
+    </div>
+
+    <!-- ---------------------------------------- -->
+    <!-- 1. INTERACTIVE TASK                      -->
+    <!-- ---------------------------------------- -->
+
+    <h2 class="section">1. Interactive Task</h2>
+
+    <p>
+        In this task, you'll interact with a simplified demonstration of how CSRF works.
+        A legitimate form is shown on the left, and an “attacker link” is shown on the right.
+    </p>
+
+    <div class="grid-2">
+
+        <!-- Victim Form -->
+        <div class="card">
+            <div class="card-title">Victim Site Form</div>
+
+            <label>Transfer Amount (£):</label>
+            <input type="number" id="amount" value="50">
+
+            <label>Recipient:</label>
+            <input type="text" id="recipient" value="Bob">
+
+            <div class="checkbox-row">
+                <input type="checkbox" id="enableToken" checked>
+                <label for="enableToken">Enable CSRF Token Protection</label>
+            </div>
+
+            <button class="btn btn-primary" onclick="sendLegitimate()">Send Legitimate Request</button>
+
+            <div id="legitResult" class="result" style="margin-top:12px;"></div>
+        </div>
+
+
+        <!-- Attacker Panel -->
+        <div class="card">
+            <div class="card-title">Attacker Page</div>
+
+            <p>This malicious link tries to submit a transfer *pretending* to be you.</p>
+
+            <button class="btn btn-secondary" onclick="sendForged()">Launch CSRF Attack</button>
+
+            <div id="attackResult" class="result" style="margin-top:12px;"></div>
+        </div>
+
+    </div>
+
+    <div class="panel" style="margin-top:20px;">
+        <h3 class="section">Simulated Server Log</h3>
+        <pre id="serverLog" class="code"></pre>
+    </div>
+
+
+    <!-- ---------------------------------------- -->
+    <!-- 2. MCQ QUESTIONS                         -->
+    <!-- ---------------------------------------- -->
+
+    <h2 class="section">2. Questions</h2>
+
+    <div class="quiz">
+
+        <div class="question">
+            1. What does CSRF stand for?
+        </div>
+        <div class="options">
+            <label class="option"><input type="radio" name="q1" value="a"> Client‑Side Request Failure</label>
+            <label class="option"><input type="radio" name="q1" value="b"> Cross‑Site Request Forgery</label>
+            <label class="option"><input type="radio" name="q1" value="c"> Cyber Security Risk Function</label>
+        </div>
+
+        <div class="question">
+            2. Why can CSRF occur?
+        </div>
+        <div class="options">
+            <label class="option"><input type="radio" name="q2" value="a"> Browsers block cookies from being sent automatically</label>
+            <label class="option"><input type="radio" name="q2" value="b"> Browsers automatically include cookies with requests</label>
+            <label class="option"><input type="radio" name="q2" value="c"> Servers don't use enough RAM</label>
+        </div>
+
+        <div class="question">
+            3. Which technique helps prevent CSRF attacks?
+        </div>
+        <div class="options">
+            <label class="option"><input type="radio" name="q3" value="a"> Using CSRF tokens</label>
+            <label class="option"><input type="radio" name="q3" value="b"> Using bigger hard drives</label>
+            <label class="option"><input type="radio" name="q3" value="c"> Formatting the database</label>
+        </div>
+
+    </div>
+
+
+    <!-- ---------------------------------------- -->
+    <!-- 3. REFLECTION                            -->
+    <!-- ---------------------------------------- -->
+
+    <h2 class="section">3. Reflection</h2>
+
+    <p>Explain why CSRF tokens help stop forged requests:</p>
+    <textarea id="reflection"></textarea>
+
+    <button class="btn btn-primary" onclick="submitCSRFAnswers()">Check My Answers</button>
+
+    <div id="score" class="result" style="margin-top:16px;"></div>
+
+    <div id="modelAnswers" class="panel" style="margin-top:16px; display:none;">
+        <h3 class="section">Model Answers</h3>
+        <p><strong>1.</strong> Cross‑Site Request Forgery</p>
+        <p><strong>2.</strong> Browsers automatically include cookies with requests.</p>
+        <p><strong>3.</strong> CSRF tokens prevent forged requests from succeeding.</p>
+        <p><strong>Reflection example:</strong> CSRF tokens ensure that only genuine forms from the real site include the secret value attackers can’t guess.</p>
+    </div>
+
+</div>
+
+logic.js</script>
+
+</body>
+</html>
