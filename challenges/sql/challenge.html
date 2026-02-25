@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SQL Injection Challenge</title>
+<link rel="stylesheet" href="../../shared/challenge-style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>SQL Injection Challenge</h1>
+        <p class="lead">Your goal: bypass the login form using SQL Injection and answer the questions below.</p>
+    </div>
+
+    <h2 class="section">1. Interactive Task</h2>
+
+    <p>Below is a deliberately vulnerable login form. Try to log in as <strong>admin</strong> without knowing the password.</p>
+
+    <div class="panel">
+        <label>Username:</label>
+        <input type="text" id="username">
+
+        <label>Password:</label>
+        <input type="text" id="password">
+
+        <button class="btn btn-primary" onclick="attemptLogin()">Login</button>
+
+        <div id="loginResult" class="result" style="margin-top:12px;"></div>
+
+        <h3 class="section">SQL Query (Simulated)</h3>
+        <pre id="sqlPreview" class="code"></pre>
+    </div>
+
+    <h2 class="section">2. Questions</h2>
+
+    <div class="quiz">
+
+        <div class="question">
+            1. What is SQL Injection?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q1" value="a">
+                A way to improve database performance
+            </label>
+            <label class="option">
+                <input type="radio" name="q1" value="b">
+                When user input is incorrectly sent into an SQL query, allowing attackers to modify it
+            </label>
+            <label class="option">
+                <input type="radio" name="q1" value="c">
+                A safe method for testing login systems
+            </label>
+        </div>
+
+        <div class="question">
+            2. Which of the following SQL snippets would bypass the login?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q2" value="a">
+                `DROP TABLE users`
+            </label>
+            <label class="option">
+                <input type="radio" name="q2" value="b">
+                `' OR '1'='1`
+            </label>
+            <label class="option">
+                <input type="radio" name="q2" value="c">
+                `admin -- comment`
+            </label>
+        </div>
+
+        <div class="question">
+            3. Which method prevents SQL Injection?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q3" value="a">
+                Using prepared statements / parameterised queries
+            </label>
+            <label class="option">
+                <input type="radio" name="q3" value="b">
+                Allowing users to type any SQL they want
+            </label>
+            <label class="option">
+                <input type="radio" name="q3" value="c">
+                Storing SQL queries in cookies
+            </label>
+        </div>
+
+    </div>
+
+    <h2 class="section">3. Reflection</h2>
+    <p>Explain in your own words why SQL Injection is dangerous:</p>
+    <textarea id="reflection"></textarea>
+
+    <button class="btn btn-primary" onclick="submitAnswers()">Check My Answers</button>
+
+    <div id="score" class="result" style="margin-top:16px;"></div>
+
+    <div id="modelAnswers" class="panel" style="display:none; margin-top:16px;">
+        <h3 class="section">Model Answers</h3>
+        <p><strong>1.</strong> SQL Injection is when user input is sent into an SQL query, allowing attackers to change the meaning of the query.</p>
+        <p><strong>2.</strong> `' OR '1'='1`</p>
+        <p><strong>3.</strong> Using prepared statements / parameterised queries</p>
+        <p><strong>Reflection example:</strong> SQL Injection is dangerous because it can let attackers bypass authentication, read or delete data, and completely compromise the database.</p>
+    </div>
+
+</div>
+
+<script src="logic.js"></script>
+</body>
+</html>
