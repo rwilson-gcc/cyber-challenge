@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Security Insight Challenge Hub</title>
+<link rel="stylesheet" href="../shared/challenge-style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Security Insight Challenge Hub</h1>
+        <p class="lead">Welcome! Choose a challenge below to test your cybersecurity knowledge.  
+           Each challenge includes a hands‑on task and short quiz questions.</p>
+    </div>
+
+    <h2 class="section">Available Challenges</h2>
+
+    <div class="grid-2">
+
+        <!-- SQL Injection -->
+        <div class="card">
+            <div class="card-title">SQL Injection</div>
+            <p>Exploit a vulnerable login form and learn how attackers bypass authentication.</p>
+            <div class="btn-row">
+                <a class="btn btn-primary" href="sql/challenge.html">Start Challenge →</a>
+            </div>
+        </div>
+
+        <!-- XSS -->
+        <div class="card">
+            <div class="card-title">Cross‑Site Scripting (XSS)</div>
+            <p>Inject safe payloads into a fake comments system and learn how browsers interpret scripts.</p>
+            <div class="btn-row">
+                <a class="btn btn-primary" href="xss/challenge.html">Start Challenge →</a>
+            </div>
+        </div>
+
+        <!-- CSRF -->
+        <div class="card">
+            <div class="card-title">Cross‑Site Request Forgery (CSRF)</div>
+            <p>Trigger a forged request and understand why CSRF tokens are essential.</p>
+            <div class="btn-row">
+                <a class="btn btn-primary" href="csrf/challenge.html">Start Challenge →</a>
+            </div>
+        </div>
+
+        <!-- Command Injection -->
+        <div class="card">
+            <div class="card-title">Command Injection</div>
+            <p>Manipulate system commands through unsafe input and explore safe execution modes.</p>
+            <div class="btn-row">
+                <a class="btn btn-primary" href="command/challenge.html">Start Challenge →</a>
+            </div>
+        </div>
+
+        <!-- Cookie Tampering -->
+        <div class="card">
+            <div class="card-title">Cookie Tampering</div>
+            <p>Modify a simulated cookie to escalate privileges and learn how servers validate data.</p>
+            <div class="btn-row">
+                <a class="btn btn-primary" href="cookie/challenge.html">Start Challenge →</a>
+            </div>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="center">
+        <p class="note">All challenges are simulated and safe — no real attacks are performed.</p>
+        <p class="note">Hosted at: <a href="https://rwilson-gcc.github.io/cyber-challenge/">https://rwilson-gcc.github.io/cyber-challenge/</a></p>
+    </div>
+
+</div>
+
+</body>
+</html>
