@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>XSS Challenge</title>
+<link rel="stylesheet" href="../../shared/challenge-style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>XSS Challenge</h1>
+        <p class="lead">
+            Your goal: inject a harmless XSS payload into the comments box and answer the questions below.
+        </p>
+    </div>
+
+    <h2 class="section">1. Interactive Task</h2>
+
+    <p>This comments system is <strong>deliberately vulnerable</strong> to XSS.  
+       Try entering a payload such as: <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code></p>
+
+    <div class="panel">
+
+        <label>Add a comment:</label>
+        <input type="text" id="commentInput" placeholder="Try an XSS payload…">
+
+        <button class="btn btn-primary" onclick="addComment()">Post Comment</button>
+
+        <div id="xssWarning" class="result" style="margin-top:12px;"></div>
+
+        <h3 class="section">Comments</h3>
+        <div id="comments"></div>
+
+    </div>
+
+
+    <h2 class="section">2. Questions</h2>
+
+    <div class="quiz">
+
+        <div class="question">
+            1. What does XSS stand for?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q1" value="a">
+                Cross‑Server Scripting
+            </label>
+            <label class="option">
+                <input type="radio" name="q1" value="b">
+                Cross‑Site Scripting
+            </label>
+            <label class="option">
+                <input type="radio" name="q1" value="c">
+                XML Style Sheets
+            </label>
+        </div>
+
+        <div class="question">
+            2. Why is XSS dangerous?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q2" value="a">
+                It slows down the server
+            </label>
+            <label class="option">
+                <input type="radio" name="q2" value="b">
+                It lets attackers run scripts in other users’ browsers
+            </label>
+            <label class="option">
+                <input type="radio" name="q2" value="c">
+                It deletes browser cookies immediately
+            </label>
+        </div>
+
+        <div class="question">
+            3. Which of the following prevents XSS?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q3" value="a">
+                Rendering user input with <code>innerHTML</code>
+            </label>
+            <label class="option">
+                <input type="radio" name="q3" value="b">
+                Escaping/encoding user input before output
+            </label>
+            <label class="option">
+                <input type="radio" name="q3" value="c">
+                Using larger servers
+            </label>
+        </div>
+
+    </div>
+
+
+    <h2 class="section">3. Reflection</h2>
+
+    <p>Explain in your own words how XSS allows attackers to affect other users:</p>
+    <textarea id="reflection"></textarea>
+
+    <button class="btn btn-primary" onclick="submitXSSAnswers()">Check My Answers</button>
+
+    <div id="score" class="result" style="margin-top:16px;"></div>
+
+    <div id="modelAnswers" class="panel" style="display:none; margin-top:16px;">
+        <h3 class="section">Model Answers</h3>
+        <p><strong>1.</strong> Cross‑Site Scripting</p>
+        <p><strong>2.</strong> XSS allows attackers to run scripts in other users’ browsers.</p>
+        <p><strong>3.</strong> Escaping/encoding user input.</p>
+        <p><strong>Reflection example:</strong> XSS is dangerous because attackers can inject scripts that steal data, modify pages, or impersonate users.</p>
+    </div>
+
+</div>
+
+<script src="logic.js"></script>
+</body>
+</html>
