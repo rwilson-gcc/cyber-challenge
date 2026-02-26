@@ -1,142 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>SQL Injection — Security Insight</title>
+<meta charset="UTF-8">
+<title>SQL Injection Challenge</title>
 ../../shared/challenge-style.css
-<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
 
 <div class="container">
 
-    <!-- Back link -->
-    <p class="mb-16">
-        ← <a href="https://rwilson-gcc.github.io/cyber-examples/">Back to Learning Demos</a>
-    </p>
-
     <div class="header">
-        <h1>SQL Injection — Complete Teaching Module</h1>
-        <p class="lead">Learn how SQL Injection works, why it happens, how to prevent it, and try a safe hands‑on demonstration.</p>
+        <h1>SQL Injection Challenge</h1>
+        <p class="lead">Your goal: bypass the login form using SQL Injection and answer the questions below.</p>
     </div>
 
+    <h2 class="section">1. Interactive Task</h2>
 
-    <!-- ========================================================= -->
-    <!-- 1. LEARNING OUTCOMES                                      -->
-    <!-- ========================================================= -->
-    <h2 class="section">1. Learning Outcomes</h2>
-
-    <p>By the end of this lesson, learners will be able to:</p>
-    <ul>
-        <li>Explain what SQL Injection (SQLi) is and why it occurs</li>
-        <li>Analyse how unsanitised inputs can be abused to manipulate database queries</li>
-        <li>Perform a controlled SQL Injection attack in a safe demo environment</li>
-        <li>Describe the impact of SQL Injection attacks on organisations</li>
-        <li>Apply secure coding techniques (parameterised queries, input validation)</li>
-        <li>Evaluate real-world SQLi incidents and identify security design failures</li>
-    </ul>
-
-
-    <!-- ========================================================= -->
-    <!-- 2. INTRODUCTION                                            -->
-    <!-- ========================================================= -->
-    <h2 class="section">2. Introduction to SQL Injection</h2>
-
-    <p>
-        SQL Injection is an attack technique where a malicious actor injects SQL commands into an application's 
-        input fields. If the application inserts user input directly into SQL statements without validation, the attacker can:
-    </p>
-
-    <ul>
-        <li>Bypass authentication</li>
-        <li>Extract, modify, or delete data</li>
-        <li>Escalate database privileges</li>
-        <li>Compromise the entire system</li>
-    </ul>
-
-    <p>SQL Injection remains one of the most dangerous and common vulnerabilities, ranked in the OWASP Top 10 (A03:2021 – Injection).</p>
-
-
-    <!-- ========================================================= -->
-    <!-- 3. WHY SQLI HAPPENS                                       -->
-    <!-- ========================================================= -->
-    <h2 class="section">3. Why SQL Injection Happens</h2>
-
-    <h3>3.1 Unsanitised User Input</h3>
-    <p>Applications incorrectly trust user input without checking format, type, or malicious intent.</p>
-
-    <h3>3.2 String‑Built SQL Queries</h3>
-    <pre class="code">
-query = "SELECT * FROM users WHERE username = '" + user_input + "';"
-    </pre>
-    <p>Attackers exploit this by inserting characters that alter the SQL structure.</p>
-
-    <h3>3.3 Lack of Parameterised Queries</h3>
-    <p>Safe code separates SQL from data — preventing injection.</p>
-
-    <h3>3.4 Over‑privileged Database Accounts</h3>
-    <p>If the application uses a high‑privilege DB account, the impact becomes severe.</p>
-
-
-    <!-- ========================================================= -->
-    <!-- 4. ATTACK FLOW DIAGRAM                                    -->
-    <!-- ========================================================= -->
-    <h2 class="section">4. Attack Flow Diagram</h2>
-
-    <pre class="code">
-User Input
-    ↓
-Application Form
-    ↓
-String-Concatenated SQL Query
-    ↓
-Database Executes Malicious SQL
-    ↓
-Attacker Gains Unauthorised Access
-    </pre>
-
-
-    <!-- ========================================================= -->
-    <!-- 5. DEMO SCENARIO                                           -->
-    <!-- ========================================================= -->
-    <h2 class="section">5. Demo Scenario (SQL Injection in Action)</h2>
-    <p>This demo simulates SQL Injection in a safe environment.</p>
-
-    <h3>5.1 Intended Query</h3>
-    <pre class="code">
-SELECT * FROM users
-WHERE username = 'USER_INPUT'
-AND password = 'PASS_INPUT';
-    </pre>
-
-    <h3>5.2 Example Input</h3>
-    <pre class="code">
-Username: admin' --
-Password: anything
-    </pre>
-
-    <h3>5.3 Resulting Malicious Query</h3>
-    <pre class="code">
-SELECT * FROM users
-WHERE username = 'admin' --'
-AND password = 'anything';
-    </pre>
-
-    <p>The <code>--</code> comment truncates the password check, bypassing authentication.</p>
-
-    <h3>5.4 What Learners Should Observe</h3>
-    <ul>
-        <li>The SQL preview updates based on your input</li>
-        <li>Login bypass occurs with SQLi payloads</li>
-        <li>A fake “database dump” appears when injection succeeds</li>
-    </ul>
-
-
-    <!-- ========================================================= -->
-    <!-- INTERACTIVE SQL DEMO                                      -->
-    <!-- ========================================================= -->
-    <h2 class="section">6. Try It Yourself — Interactive SQL Injection Demo</h2>
+    <p>Below is a deliberately vulnerable login form. Try to log in as <strong>admin</strong> without knowing the password.</p>
 
     <div class="panel">
         <label>Username:</label>
@@ -149,90 +30,85 @@ AND password = 'anything';
 
         <div id="loginResult" class="result" style="margin-top:12px;"></div>
 
-        <h3 class="section">Simulated SQL Query</h3>
+        <h3 class="section">SQL Query (Simulated)</h3>
         <pre id="sqlPreview" class="code"></pre>
-
-        <h3 class="section">Database Output (Simulated)</h3>
-        <pre id="dbDump" class="code"></pre>
     </div>
 
+    <h2 class="section">2. Questions</h2>
 
-    <!-- ========================================================= -->
-    <!-- 7. SECURE VS INSECURE EXAMPLES                             -->
-    <!-- ========================================================= -->
-    <h2 class="section">7. Vulnerable vs Secure Coding Examples</h2>
+    <div class="quiz">
 
-    <h3>❌ Insecure Example</h3>
-    <pre class="code">
-query = "SELECT * FROM users WHERE username = '" + user_input + "';";
-cursor.execute(query);
-    </pre>
+        <div class="question">
+            1. What is SQL Injection?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q1" value="a">
+                A way to improve database performance
+            </label>
+            <label class="option">
+                <input type="radio" name="q1" value="b">
+                When user input is incorrectly sent into an SQL query, allowing attackers to modify it
+            </label>
+            <label class="option">
+                <input type="radio" name="q1" value="c">
+                A safe method for testing login systems
+            </label>
+        </div>
 
-    <h3>✅ Secure Example (Parameterised Query)</h3>
-    <pre class="code">
-query = "SELECT * FROM users WHERE username = %s;";
-cursor.execute(query, (user_input,));
-    </pre>
+        <div class="question">
+            2. Which of the following SQL snippets would bypass the login?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q2" value="a">
+                `DROP TABLE users`
+            </label>
+            <label class="option">
+                <input type="radio" name="q2" value="b">
+                `' OR '1'='1`
+            </label>
+            <label class="option">
+                <input type="radio" name="q2" value="c">
+                `admin -- comment`
+            </label>
+        </div>
 
+        <div class="question">
+            3. Which method prevents SQL Injection?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q3" value="a">
+                Using prepared statements / parameterised queries
+            </label>
+            <label class="option">
+                <input type="radio" name="q3" value="b">
+                Allowing users to type any SQL they want
+            </label>
+            <label class="option">
+                <input type="radio" name="q3" value="c">
+                Storing SQL queries in cookies
+            </label>
+        </div>
 
-    <!-- ========================================================= -->
-    <!-- 8. PREVENTION                                              -->
-    <!-- ========================================================= -->
-    <h2 class="section">8. How to Prevent SQL Injection</h2>
+    </div>
 
-    <ul>
-        <li>Use parameterised queries (prepared statements)</li>
-        <li>Validate and sanitise input</li>
-        <li>Follow least‑privilege DB permissions</li>
-        <li>Avoid dynamic SQL where possible</li>
-        <li>Use Web Application Firewalls (WAF)</li>
-    </ul>
+    <h2 class="section">3. Reflection</h2>
+    <p>Explain in your own words why SQL Injection is dangerous:</p>
+    <textarea id="reflection"></textarea>
 
+    <button class="btn btn-primary" onclick="submitAnswers()">Check My Answers</button>
 
-    <!-- ========================================================= -->
-    <!-- 9. CASE STUDIES                                            -->
-    <!-- ========================================================= -->
-    <h2 class="section">9. Real‑World SQL Injection Case Studies</h2>
+    <div id="score" class="result" style="margin-top:16px;"></div>
 
-    <h3>TalkTalk (2015)</h3>
-    <ul>
-        <li>SQLi used to access customer data</li>
-        <li>157,000+ records exposed</li>
-        <li>£400,000 ICO fine</li>
-    </ul>
-
-    <h3>Sony Pictures (2011)</h3>
-    <ul>
-        <li>Poor validation → full DB dump</li>
-        <li>Millions of accounts leaked</li>
-    </ul>
-
-
-    <!-- ========================================================= -->
-    <!-- 10. REFLECTION                                             -->
-    <!-- ========================================================= -->
-    <h2 class="section">10. Reflection Questions</h2>
-
-    <p>Think about the following:</p>
-    <ul>
-        <li>How would you redesign an application to be resilient to SQL injection?</li>
-        <li>What organisational failures commonly lead to SQLi?</li>
-        <li>How does SQLi relate to defence‑in‑depth?</li>
-    </ul>
-
-
-    <!-- ========================================================= -->
-    <!-- 11. SUMMARY                                                -->
-    <!-- ========================================================= -->
-    <h2 class="section">11. Summary / Key Takeaways</h2>
-
-    <ul>
-        <li>SQL Injection exploits unsanitised input</li>
-        <li>It is still one of the most dangerous vulnerabilities</li>
-        <li>Parameterised queries are the most effective mitigation</li>
-        <li>Major breaches have occurred due to SQLi</li>
-        <li>Secure coding practices eliminate SQLi risks entirely</li>
-    </ul>
+    <div id="modelAnswers" class="panel" style="display:none; margin-top:16px;">
+        <h3 class="section">Model Answers</h3>
+        <p><strong>1.</strong> SQL Injection is when user input is sent into an SQL query, allowing attackers to change the meaning of the query.</p>
+        <p><strong>2.</strong> `' OR '1'='1`</p>
+        <p><strong>3.</strong> Using prepared statements / parameterised queries</p>
+        <p><strong>Reflection example:</strong> SQL Injection is dangerous because it can let attackers bypass authentication, read or delete data, and completely compromise the database.</p>
+    </div>
 
 </div>
 
