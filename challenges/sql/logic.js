@@ -1,80 +1,51 @@
-/* SQL Injection Challenge Logic
-   This script powers the interactive login simulation
-   and auto‑marks the quiz section.
+/* SQL Injection Challenge Logic (No Quiz Version)
+   Powers:
+   - SQL preview
+   - Login bypass detection
+   - Fake DB dump
 */
-
-// -------------------------------
-// 1. SQL Injection Login Simulation
-// -------------------------------
 
 function attemptLogin() {
     const user = document.getElementById("username").value;
     const pass = document.getElementById("password").value;
 
-    // Generate fake SQL
+    // SQL Preview ---------------------------------
     const sql = `
 SELECT * FROM users
 WHERE username = '${user}'
 AND password = '${pass}';
     `;
-
     document.getElementById("sqlPreview").textContent = sql.trim();
 
-    // Vulnerable logic — any use of ' OR '1'='1 bypasses login
-    const injectionPattern = /' ?or ?'1'='1/i;
+    const resultBox = document.getElementById("loginResult");
+    const dbDump = document.getElementById("dbDump");
+    dbDump.textContent = "";
 
+    // Injection pattern ----------------------------
+    const injection = /' ?or ?'1'='1/i;
+
+    if (injection.test(user) || injection.test(pass)) {
+        // Injection success
+        resultBox.className = "result good";
+        resultBox.innerHTML = "🔥 SQL Injection Successful — Login Bypassed";
+
+        dbDump.textContent = `
+FAKE USER DATABASE
+--------------------------------
+id | username | password
+1  | admin    | password123
+2  | alice    | qwerty
+3  | bob      | letmein
+        `;
+        return;
+    }
+
+    // Normal login
     if (user === "admin" && pass === "admin123") {
-        document.getElementById("loginResult").textContent =
-            "✔ Login successful (real credentials)";
-        document.getElementById("loginResult").className = "result good";
-        return;
-    }
-
-    if (injectionPattern.test(user) || injectionPattern.test(pass)) {
-        document.getElementById("loginResult").innerHTML =
-            "🔥 <strong>SQL Injection successful!</strong> You bypassed the login.";
-        document.getElementById("loginResult").className = "result good";
-        return;
-    }
-
-    document.getElementById("loginResult").textContent =
-        "❌ Login failed. Try SQL Injection to bypass authentication.";
-    document.getElementById("loginResult").className = "result bad";
-}
-
-
-
-// -------------------------------
-// 2. Quiz Auto‑Marking
-// -------------------------------
-function submitAnswers() {
-
-    let score = 0;
-
-    // Correct answers
-    const answers = {
-        q1: "b",
-        q2: "b",
-        q3: "a"
-    };
-
-    // Check MCQs
-    Object.keys(answers).forEach(q => {
-        const selected = document.querySelector(`input[name="${q}"]:checked`);
-        if (selected && selected.value === answers[q]) score++;
-    });
-
-    // Score output
-    const scoreBox = document.getElementById("score");
-
-    if (score === 3) {
-        scoreBox.innerHTML = `✔ Perfect score: ${score}/3`;
-        scoreBox.className = "result good";
+        resultBox.className = "result good";
+        resultBox.innerHTML = "✔ Login successful (valid credentials)";
     } else {
-        scoreBox.innerHTML = `You scored ${score}/3 — check the model answers below.`;
-        scoreBox.className = "result bad";
+        resultBox.className = "result bad";
+        resultBox.innerHTML = "❌ Login failed — try an SQL Injection payload.";
     }
-
-    // Show model answers
-    document.getElementById("modelAnswers").style.display = "block";
 }
