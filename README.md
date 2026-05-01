@@ -5,6 +5,9 @@
 A lightweight, browser‑based hub for hands‑on cyber security challenges.  
 This project provides standalone practical exercises covering common web‑security vulnerabilities—ideal for teaching, demonstrations, and self‑directed practice.
 
+
+⚠️ Educational use only
+All vulnerabilities are deliberately introduced for learning purposes. This project is not intended for production use.
 ***
 
 ## 📂 Repository Structure
